@@ -30,6 +30,6 @@ class Raycaster:
 
                 draw_begin = (HEIGHT / 2) - (line_height / 2)
                 draw_end = line_height
-                pygame.draw.rect(screen, (0, 255, 0), (i * RES, draw_begin, RES, draw_end))
+                pygame.draw.rect(screen, (ray.color, ray.color, ray.color), (i * RES, draw_begin, RES, draw_end)) # type: ignore
 
                 i += 1

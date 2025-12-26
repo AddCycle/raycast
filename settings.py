@@ -13,4 +13,7 @@ FOV = 60 * (math.pi / 180)
 
 RES = 4
 NUM_RAYS = WIDTH // RES
+
 PRECISION_FIX_GAPS = 0.0001
+
+LIGHT_LEVEL = 60

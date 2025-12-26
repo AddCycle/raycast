@@ -25,6 +25,7 @@ class Ray:
         self.wall_hit_y = 0
 
         self.distance = 0
+        self.color = 255
     
     def cast(self):
         # HORIZONTAL CHECKING
@@ -118,11 +119,17 @@ class Ray:
             self.wall_hit_x = horizontal_hit_x
             self.wall_hit_y = horizontal_hit_y
             self.distance = horizontal_distance
+            self.color = 160
         else:
             self.wall_hit_x = vertical_hit_x
             self.wall_hit_y = vertical_hit_y
             self.distance = vertical_distance
-            
+            self.color = 255
+        
+        self.distance *= math.cos(self.player.rotationAngle - self.rayAngle)
+
+        self.color *= LIGHT_LEVEL / self.distance
+        self.color = max(min(self.color, 255), 0)
 
     def render(self, screen: pygame.Surface):
         playerX = self.player.x
