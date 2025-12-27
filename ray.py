@@ -2,7 +2,7 @@ import pygame
 import math
 from player import Player
 from map import Map
-from settings import *
+from constants import *
 
 def normalizeAngle(angle: float):
     angle = angle % (2 * math.pi)

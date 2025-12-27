@@ -1,6 +1,6 @@
 import pygame
 import random as rand
-from settings import *
+from constants import *
 
 class Map:
 

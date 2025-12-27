@@ -1,0 +1,6 @@
+from settings import *
+
+WIDTH = COLS * TILESIZE
+HEIGHT = ROWS * TILESIZE
+
+NUM_RAYS = WIDTH // RES

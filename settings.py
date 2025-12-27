@@ -1,20 +1,22 @@
 import math
 
+# tilesize & wall size
 TILESIZE = 64
 WALL_SIZE = TILESIZE
 
+# map size
 ROWS = 10
 COLS = 15
 
-WIDTH = COLS * TILESIZE
-HEIGHT = ROWS * TILESIZE
-
-FOV = 60 * (math.pi / 180)
+# FOV & sensitivity
+FOV = math.radians(60)
 MOUSE_SENSITIVITY = 0.1
 
+# resolution: affecting number of rays to calculate
 RES = 4
-NUM_RAYS = WIDTH // RES
 
+# precision: to avoid rays hitting through walls (gaps between walls)
 PRECISION_FIX_GAPS = 0.0001
 
+# lighting: affecting darkness
 LIGHT_LEVEL = 60

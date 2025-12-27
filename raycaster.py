@@ -1,4 +1,4 @@
-from settings import *
+from constants import *
 import pygame
 from player import Player
 from ray import Ray
