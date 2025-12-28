@@ -21,6 +21,7 @@ class Ray:
         self.is_facing_right = self.rayAngle > 1.5 * math.pi or self.rayAngle < math.pi / 2
         self.is_facing_left = not self.is_facing_right
 
+        self.vertical_hit = False
         self.wall_hit_x = 0
         self.wall_hit_y = 0
 
@@ -120,11 +121,13 @@ class Ray:
             self.wall_hit_y = horizontal_hit_y
             self.distance = horizontal_distance
             self.color = 160
+            self.vertical_hit = False
         else:
             self.wall_hit_x = vertical_hit_x
             self.wall_hit_y = vertical_hit_y
             self.distance = vertical_distance
             self.color = 255
+            self.vertical_hit = True
         
         self.distance *= math.cos(self.player.rotationAngle - self.rayAngle)
 
@@ -134,4 +137,14 @@ class Ray:
     def render(self, screen: pygame.Surface):
         playerX = self.player.x
         playerY = self.player.y
-        pygame.draw.line(screen, (255, 0, 0), (playerX, playerY), (self.wall_hit_x, self.wall_hit_y)) # type: ignore
+        if self.wall_hit_x is None or self.wall_hit_y is None:
+            # TODO PROPER WINNING SCREEN (gamestates)
+            # pygame.quit()
+            # exit()
+            # print("WIN")
+            self.debug()
+        else:
+            pygame.draw.line(screen, (255, 0, 0), (playerX, playerY), (self.wall_hit_x, self.wall_hit_y)) # type: ignore
+    
+    def debug(self):
+        pass

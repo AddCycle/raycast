@@ -1,16 +1,22 @@
 import math
 
+# window settings
+TITLE = "THE DARKNESS FP CHASE"
+
 # tilesize & wall size
 TILESIZE = 64
 WALL_SIZE = TILESIZE
 
 # map size
-ROWS = 10
-COLS = 15
+ROWS = 15
+COLS = 20
 
 # FOV & sensitivity
 FOV = math.radians(60)
 MOUSE_SENSITIVITY = 0.1
+
+# player settings
+RADIUS = 10 # affecting collision distance between walls
 
 # resolution: affecting number of rays to calculate
 RES = 4

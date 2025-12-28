@@ -1,4 +1,5 @@
 from constants import *
+from map import Map
 import pygame
 
 def normalizeAngle(angle: float):
@@ -8,10 +9,11 @@ def normalizeAngle(angle: float):
     return angle
 
 class Player:
-    def __init__(self) -> None:
-        self.x = WIDTH // 2
-        self.y = HEIGHT // 2
-        self.radius = 3
+    def __init__(self, map: Map) -> None:
+        self.x = map.entrance[1] * TILESIZE + TILESIZE // 2
+        self.y = map.entrance[0] * TILESIZE + TILESIZE // 2
+        self.map = map
+        self.radius = RADIUS
         self.turnDirection = 0
         self.walkDirection = 0
         self.strafeDirection = 0
@@ -47,12 +49,32 @@ class Player:
             self.strafeDirection = -1
 
         moveStep = self.moveSpeed * self.walkDirection
-        self.x += math.cos(self.rotationAngle) * moveStep
-        self.y += math.sin(self.rotationAngle) * moveStep
-
         strafeStep = self.moveSpeed * self.strafeDirection
-        self.x += -math.sin(self.rotationAngle) * strafeStep
-        self.y +=  math.cos(self.rotationAngle) * strafeStep
+
+        next_x = self.x
+        next_y = self.y
+
+        next_x += math.cos(self.rotationAngle) * moveStep
+        next_y += math.sin(self.rotationAngle) * moveStep
+
+        next_x += -math.sin(self.rotationAngle) * strafeStep
+        next_y +=  math.cos(self.rotationAngle) * strafeStep
+
+        r = self.radius
+
+        # X axis
+        if not (
+            self.map.has_wall_at(next_x + r, self.y) or
+            self.map.has_wall_at(next_x - r, self.y)
+        ):
+            self.x = next_x
+
+        # Y axis
+        if not (
+            self.map.has_wall_at(self.x, next_y + r) or
+            self.map.has_wall_at(self.x, next_y - r)
+        ):
+            self.y = next_y
 
     def render(self, screen: pygame.Surface):
         pygame.draw.circle(screen, (255, 0, 0), (self.x, self.y), 3)

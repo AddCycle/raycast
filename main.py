@@ -2,12 +2,21 @@ from constants import *
 import pygame
 from map import Map
 from player import Player
+from enemy import Enemy
 from raycaster import Raycaster
 
+# screen settings
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption(TITLE)
+
 map = Map(COLS, ROWS)
-player = Player()
-raycaster = Raycaster(player, map)
+
+player = Player(map)
+
+enemy_tex = pygame.image.load("assets/enemy.png").convert_alpha()
+enemy = Enemy(300, 300, enemy_tex, player)
+
+raycaster = Raycaster(player, enemy, map)
 map_view = True
 
 clock = pygame.Clock()
@@ -36,6 +45,7 @@ while True:
 
     # update
     player.update(map_view)
+    enemy.update()
     raycaster.castAllRays()
 
     # render
@@ -44,6 +54,7 @@ while True:
     if map_view:
         map.render(screen)
         player.render(screen)
+        enemy.render_2d_pos(screen)
 
     raycaster.render(screen, map_view)
 
